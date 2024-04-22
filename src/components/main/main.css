@@ -1,0 +1,15 @@
+.main {
+	margin-top: 2rem;
+	.wrapper {
+		max-width: 1600px;
+		width: 90%;
+		margin: 0 auto;
+
+		section {
+			display: flex;
+			gap: 2rem;
+			align-items: flex-start;
+			margin-top: 2rem;
+		}
+	}
+}

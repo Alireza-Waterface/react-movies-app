@@ -1,0 +1,59 @@
+.error {
+	background-color: transparent;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+
+	.icon {
+		width: 80px;
+		height: 80px;
+		fill: var(--accent-color);
+	}
+
+	& > div {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+
+		span {
+			background-color: var(--accent-color);
+			height: 6px;
+			width: 4px;
+			border-radius: 4px;
+
+			&:first-child {
+				height: 10px;
+			}
+			&:last-child {
+				height: 10px;
+			}
+		}
+	}
+
+	h2 {
+		color: var(--accent-color);
+		font-size: 1.375rem;
+	}
+
+	button {
+		padding: 6px 12px;
+		outline: none;
+		border: 2px solid var(--accent-color);
+		border-radius: 6px;
+		background-color: transparent;
+		color: var(--light-text);
+		font-size: 1.25rem;
+		cursor: pointer;
+		transition: all 0.2s;
+
+		&:hover {
+			background-color: var(--accent-color);
+		}
+		&:active {
+			transform: translateY(3px);
+		}
+	}
+}

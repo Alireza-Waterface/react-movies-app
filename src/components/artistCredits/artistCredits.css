@@ -1,0 +1,102 @@
+.artist-credits {
+	margin: 2rem 0;
+	
+	.title {
+		text-align: center;
+		font-size: 1.5rem;
+		margin-bottom: 1rem;
+	}
+
+	.sort {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+		padding: 1rem;
+		background-color: var(--body-bgc);
+		font-size: 1.25rem;
+		flex-wrap: wrap;
+
+		.option {
+			cursor: pointer;
+			padding: 0.5rem;
+			border-radius: 12px;
+			transition: all 0.1s;
+		}
+
+		.option.active {
+			color: var(--accent-color);
+			background-color: var(--dark-card-bg);
+		}
+	}
+
+	.credits {
+		display: flex;
+		gap: 1rem;
+		align-items: stretch;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+		background-color: var(--dark-card-bg);
+		padding: 1rem;
+		border-radius: 20px;
+
+		.credit {
+			flex: 1;
+			min-width: 300px;
+			max-width: 400px;
+			aspect-ratio: 16 / 9;
+			background-color: var(--gray-bg-color) !important;
+			background-size: cover !important;
+			border-radius: 12px;
+			position: relative;
+			text-decoration: none;
+			overflow: hidden;
+
+			&:hover {
+				.name {
+					bottom: 0;
+				}
+				.score {
+					top: -7px;
+					left: -28px;
+				}
+			}
+
+			.name {
+				position: absolute;
+				left: 0;
+				width: 100%;
+				padding: 2px;
+				background-color: var(--body-bgc);
+				border-radius: 0 0 12px 12px;
+				bottom: -60%;
+				transition: all 0.2s;
+				display: flex;
+				align-items: center;
+				gap: 4px;
+				justify-content: center;
+				text-decoration: none;
+				color: var(--light-text);
+				font-size: 1.125rem;
+	
+				.icon {
+					font-size: 2.5rem;
+					color: var(--accent-color);
+				}
+			}
+	
+			.score {
+				font-size: 1.25rem;
+				background-color: var(--accent-color);
+				width: fit-content;
+				padding: 8px 32px;
+				transform: rotate(-45deg);
+				position: absolute;
+				top: -30px;
+				left: -90px;
+				transition: all 0.2s;
+				color: var(--light-text);
+			}
+		}
+	}
+}

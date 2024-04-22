@@ -1,0 +1,232 @@
+.navbar {
+	background-color: #66666666;
+	height: 80px;
+	display: flex;
+	align-items: center;
+	position: sticky;
+	top: 0;
+	z-index: 12;
+	/* border-bottom: 1px solid var(--accent-color); */
+	backdrop-filter: blur(15px) brightness(60%);
+
+	.wrapper {
+		max-width: 1600px;
+		width: 90%;
+		margin: 0 auto;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		.search {
+			flex: 1;
+			position: relative;
+			.search-input {
+				width: 100%;
+				outline: none;
+				border: none;
+				border-radius: 20px;
+				height: 40px;
+				padding: 8px 16px;
+				font-size: 1.125rem;
+				background-color: var(--body-bgc);
+				color: var(--light-text);
+			}
+
+			.icon {
+				position: absolute;
+				top: 8px;
+				right: 8px;
+				transform: rotate(90deg);
+				fill: var(--accent-color);
+			}
+			.close-icon {
+				cursor: pointer;
+			}
+
+			.founded {
+				position: absolute;
+				top: 50px;
+				left: 0;
+				background-color: var(--gray-bg-color);
+				width: 100%;
+				min-height: 150px;
+				height: fit-content;
+				max-height: 600px;
+				overflow-y: auto;
+				scroll-snap-type: y mandatory;
+				border-radius: 20px;
+				display: flex;
+				flex-direction: column;
+				z-index: 10;
+
+				.nothing {
+					text-align: center;
+					color: var(--light-text);
+					font-size: 1.125rem;
+					margin-top: 1rem;
+				}
+
+				.item {
+					display: flex;
+					align-items: center;
+					gap: 1rem;
+					padding: 8px;
+					height: 100px;
+					text-decoration: none;
+					color: var(--light-text);
+					border-bottom: 1px solid #555;
+
+					.score {
+						display: flex;
+						flex-direction: column;
+						justify-content: center;
+					}
+
+					& > img {
+						width: 60px;
+						aspect-ratio: 3 / 4;
+					}
+
+					.info {
+						display: flex;
+						flex-direction: column;
+						gap: 8px;
+
+						.name {
+							font-weight: 600;
+						}
+
+						.desc {
+							font-size: .875rem;
+						}
+					}
+				}
+			}
+		}
+		.links {
+			flex: 3;
+			.links-list {
+				display: flex;
+				align-items: center;
+				justify-content: flex-end;
+				gap: 2rem;
+				
+				.item {
+					display: flex;
+					align-items: center;
+					gap: 8px;
+					cursor: pointer;
+					position: relative;
+
+					.link {
+						text-decoration: none;
+						color: var(--light-text);
+						font-size: 1.25rem;
+						position: relative;
+
+						&::after {
+							content: '';
+							position: absolute;
+							bottom: -5px;
+							left: 0;
+							height: 2px;
+							width: 0;
+							border-radius: 4px;
+							transition: all .2s ease .15s;
+							background-color: var(--accent-color);
+						}
+					}
+
+					.dropdown {
+						position: absolute;
+						top: 50px;
+						right: 0;
+						width: 400px;
+						background-color: var(--dark-card-bg);
+						border-radius: 20px;
+						display: flex;
+						gap: 2rem;
+						align-items: center;
+						transition: all .2s ease .2s;
+						transform: scale(0.5);
+						opacity: 0;
+						pointer-events: none;
+						z-index: 10;
+
+						& > img {
+							height: 100%;
+							width: 100%;
+							flex: 1;
+						}
+
+						ul {
+							flex: 1;
+							display: flex;
+							flex-direction: column;
+							list-style-type: none;
+							gap: 1rem;
+							padding: 1rem;
+
+							li {
+								position: relative;
+								margin-left: 1rem;
+
+								&:hover > * {
+									color: var(--accent-color);
+								}
+
+								* {
+									text-decoration: none;
+									color: var(--light-text);
+									font-size: 1.125rem;
+									transition: all .1s ease;
+								}
+
+								&::before {
+									content: '';
+									width: 10px;
+									height: 10px;
+									background-color: var(--accent-color);
+									position: absolute;
+									left: -20px;
+									top: 50%;
+									transform: translateY(-50%);
+									border-radius: 50%;
+								}
+							}
+						}
+					}
+
+					.dropdown.show {
+						transform: scale(1) !important;
+						opacity: 1 !important;
+						pointer-events: all !important;
+
+						&::after {
+							content: '';
+							position: absolute;
+							width: 100%;
+							height: 20px;
+							opacity: 0;
+							top: -20px;
+							left: 0;
+						}
+					}
+
+					.nav-icon {
+						font-size: 2rem;
+						fill: var(--accent-color);
+						transition: all .2s ease;
+					}
+
+					&:hover > .nav-icon {
+						transform: scale(1.25);
+					}
+					&:hover .link::after {
+						width: 100%;
+					}
+				}
+			}
+		}
+	}
+}

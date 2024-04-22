@@ -1,0 +1,120 @@
+.artist {
+	.wrapper {
+		max-width: 1600px;
+		width: 90%;
+		margin:2rem auto;
+
+		.details {
+			display: flex;
+			align-items: stretch;
+			justify-content: flex-start;
+			background-color: var(--gray-bg-color);
+			border-radius: 20px;
+
+			.profile {
+				display: flex;
+				flex-direction: column;
+				gap: 1rem;
+				min-width: 400px;
+				max-width: 400px;
+				
+				.main-img {
+					position: relative;
+					width: 100%;
+					
+					& > img {
+						width: 100%;
+						height: 100%;
+						min-height: 600px;
+						border-radius: 20px 0 12px 0;
+					}
+
+					.loading {
+						position: absolute;
+						top: 0;
+						left: 0;
+						width: 100%;
+						height: 100%;
+						backdrop-filter: brightness(20%);
+						display: grid;
+						place-items: center;
+						font-size: 1.5rem;
+						border-radius: 20px 0 12px 0;
+						color: #eee;
+					}
+				}
+
+				.gallery {
+					width: 100%;
+					display: flex;
+					padding: 1rem;
+					background-color: var(--dark-card-bg);
+					border-radius: 0 12px 0 12px;
+
+					&:hover > .img:not(:hover) {
+						filter: brightness(70%);
+					}
+
+					img {
+						width: 150px;
+						border-radius: 12px;
+						cursor: pointer;
+					}
+				}
+			}
+
+			.content {
+				padding: 1rem;
+				display: flex;
+				flex-direction: column;
+				gap: 1rem;
+
+				.name {
+					font-size: 2.5rem;
+					font-weight: 600;
+				}
+
+				.bio {
+					font-size: 1.125rem;
+					text-align: justify;
+				}
+
+				.birth, .deathday, .homepage {
+					font-size: 1.25rem;
+
+					span {
+						color: var(--accent-color);
+					}
+				}
+
+				.homepage {
+					text-decoration: none;
+					color: var(--accent-color);
+					position: relative;
+					width: fit-content;
+					transition: all 0.2s ease;
+
+					&:hover::after {
+						width: 100%;
+					}
+
+					&:active {
+						transform: translateY(3px);
+					}
+
+					&::after {
+						content: '';
+						background-color: var(--accent-color);
+						height: 3px;
+						width: 0;
+						position: absolute;
+						bottom: -5px;
+						left: 0;
+						border-radius: 5px;
+						transition: inherit;
+					}
+				}
+			}
+		}
+	}
+}

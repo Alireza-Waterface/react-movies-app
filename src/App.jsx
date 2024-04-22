@@ -1,3 +1,5 @@
+import { Suspense, lazy } from 'react';
+
 import './App.css';
 
 import {
@@ -9,16 +11,19 @@ import {
 import TopBar from './components/topbar/TopBar';
 import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
+import Loader from './components/loader/Loader';
+import Dashboard from './pages/dashboard/Dashboard';
 
-import Artists from './pages/artists/Artists';
-import Contact from './pages/contact/Contact';
-import Home from './pages/home/Home';
-import Movies from './pages/movies/Movies';
-import Movie from './pages/movie/Movie';
-import Register from './pages/register/Register';
-import Series from './pages/series/Series';
-import Serie from './pages/serie/Serie';
-import E404 from './pages/e404/E404';
+const Artists = lazy(() => import('./pages/artists/Artists'));
+const Artist = lazy(() => import('./pages/artist/Artist'));
+const Contact = lazy(() => import('./pages/contact/Contact'));
+const Home = lazy(() => import('./pages/home/Home'));
+const Movies = lazy(() => import('./pages/movies/Movies'));
+const Register = lazy(() => import('./pages/register/Register'));
+const Series = lazy(() => import('./pages/series/Series'));
+const Details = lazy(() => import('./pages/details/Details'));
+const E404 = lazy(() => import('./pages/e404/E404'));
+const Approved = lazy(() => import('./pages/approvedAcount/Approved'));
 
 const Layout = () => (
     <>
@@ -39,16 +44,24 @@ const router = createBrowserRouter([
                 element: <Home />,
             },
             {
-                path: '/artists',
+                path: '/artists/:page',
                 element: <Artists />,
+            },
+            {
+                path: '/artist/:id',
+                element: <Artist />,
             },
             {
                 path: '/series',
                 element: <Series />,
             },
             {
-                path: '/movies',
+                path: '/movies/:category/:page',
                 element: <Movies />,
+            },
+            {
+                path: '/details/:category/:id',
+                element: <Details />,
             },
             {
                 path: '/contact',
@@ -59,12 +72,12 @@ const router = createBrowserRouter([
                 element: <Register />,
             },
             {
-                path: '/movie/:id',
-                element: <Movie />,
+                path: '/approved',
+                element: <Approved />,
             },
             {
-                path: '/serie/:id',
-                element: <Serie />,
+                path: '/dashboard',
+                element: <Dashboard />,
             },
             {
                 path: '/*',
@@ -75,10 +88,10 @@ const router = createBrowserRouter([
 ])
 
 const App = () => {
-
-
     return (
-        <RouterProvider router={router} />
+        <Suspense fallback={<Loader />}>
+            <RouterProvider router={router} />
+        </Suspense>
     );
 };
 

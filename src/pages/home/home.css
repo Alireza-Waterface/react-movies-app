@@ -1,0 +1,26 @@
+.top-btn {
+	width: 150px;
+	outline: none;
+	font-size: 1rem;
+	background-color: transparent;
+	border: none;
+	margin: 0 auto;
+	cursor: pointer;
+	transition: all 0.2s;
+	color: #eee;
+	border-bottom: 2px solid #eb8307;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	margin-top: 4rem;
+	padding: 6px;
+
+	&:hover {
+		color: #eb8307;
+	}
+
+	&:active {
+		transform: translateY(3px);
+	}
+}

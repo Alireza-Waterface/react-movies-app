@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+
+:root {
+	--accent-color: #eb8307;
+	--light-text: #eee;
+	--dark-card-bg: #242424;
+	--gray-bg-color: #363636;
+	--body-bgc: #111;
+	--details-text-color: #eee;
+	--score-in-card-green: #00a500;
+	--score-in-card-yellow: #a1a100;
+	--score-in-card-red: #f22;
+}
+
+:root[class='light'] {
+	--accent-color: #eb8307;
+	--light-text: #111;
+	--dark-card-bg: #ddd;
+	--gray-bg-color: #bbb;
+	--body-bgc: #eee;
+	--details-text-color: #eee;
+	--score-in-card-green: #00a500;
+	--score-in-card-yellow: #a1a100;
+	--score-in-card-red: #f22;
+}
+
+*, *::after, *::before {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: "Source Sans 3", sans-serif;
+}
+
+body {
+	background-color: var(--body-bgc);
+	overflow-x: hidden;
+	color: var(--light-text);
+	transition: all 0.2s;
+}
