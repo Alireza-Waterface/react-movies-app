@@ -1,11 +1,3 @@
-:root {
-	--accent-color: #eb8307;
-	--light-text: #eee;
-	--dark-card-bg: #242424;
-	--gray-bg-color: #363636;
-	--body-bgc: #111;
-}
-
 .advanced-search {	
 	.wrapper {
 		background-color: var(--gray-bg-color);

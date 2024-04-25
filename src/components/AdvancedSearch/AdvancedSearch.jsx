@@ -1,11 +1,12 @@
 import './advancedSearch.css';
-import icon from './icons8-search-128.svg';
 import countries from '../../countries';
 import languages from '../../languages';
 import genres from '../../genres';
 
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+
+import searchIcon from '../../images/search.png';
 
 const AdvancedSearch = () => {
 	const [country, setCountry] = useState('all');
@@ -15,8 +16,6 @@ const AdvancedSearch = () => {
 	const [minScore, setMinScore] = useState(0);
 	const [year, setYear] = useState(1900);
 	const [adult, setAdult] = useState(false);
-	// const [keyword, setKeyword] = useState('');
-	// const [artist, setArtist] = useState('');
 	const [time, setTime] = useState(10);
 	const [votes, setVotes] = useState(0);
 
@@ -24,7 +23,7 @@ const AdvancedSearch = () => {
 		<div className='advanced-search'>
 			<div className='wrapper'>
 				<div className='title'>
-					<img src={icon} alt='search-icon' />
+					<img src={searchIcon} alt='search-icon' />
 					<h3>Advanced Search</h3>
 				</div>
 
@@ -175,7 +174,7 @@ const AdvancedSearch = () => {
 							inputMode='numeric'
 							value={votes}
 							onChange={(e) => {
-									setVotes(+e.target.value);
+								setVotes(+e.target.value);
 							}}
 						/>
 					</div>
