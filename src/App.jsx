@@ -8,6 +8,9 @@ import {
     Outlet,
 } from 'react-router-dom';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import TopBar from './components/topbar/TopBar';
 import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
@@ -91,6 +94,7 @@ const App = () => {
     return (
         <Suspense fallback={<Loader />}>
             <RouterProvider router={router} />
+            <ToastContainer />
         </Suspense>
     );
 };
