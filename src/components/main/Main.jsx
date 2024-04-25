@@ -1,7 +1,7 @@
 import './main.css';
 import AdvancedSearch from '../AdvancedSearch/AdvancedSearch';
 import Discover from '../discover/Discover';
-import TV_on_air from '../tv_on_air/TV_on_air';
+import Trending_tv from '../trending_tv/Trending_tv';
 
 const Main = () => {
 	return (
@@ -9,7 +9,7 @@ const Main = () => {
 			<div className='wrapper'>
 				<AdvancedSearch	/>
 				<section>
-					<TV_on_air />
+					<Trending_tv />
 					<Discover />
 				</section>
 			</div>
