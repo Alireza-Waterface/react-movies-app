@@ -19,9 +19,9 @@
 			text-decoration: none;
 			color: var(--light-text);
 
-			svg {
-				width: 60px;
-				height: 60px;
+			.logo-img {
+				width: 100px;
+				height: 100px;
 			}
 
 			& > div {
@@ -35,6 +35,7 @@
 					span {
 						background-color: var(--accent-color);
 						border-radius: 12px;
+						padding: 0 8px;
 						color: #111;
 					}
 				}
