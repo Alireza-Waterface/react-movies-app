@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import './header.css';
 
+import Slide from './Slide';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
@@ -10,62 +12,16 @@ import {EffectCoverflow, Pagination, Navigation} from 'swiper/modules';
 
 import { Link, useNavigate } from 'react-router-dom';
 
-import useFetch from '../../useFetch';
+import useFetch, {getImgUrl} from '../../useFetch';
 import * as requestConfig from '../../requestConfig';
 
 import Loader from '../loader/Loader';
 import Error from '../error/Error';
 
-import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
-import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
-
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const Favorite = FavoriteRoundedIcon;
-const NotFavorite = FavoriteBorderRoundedIcon;
-
-const Slide = ({movie, favorites = [], favoriteList}) => {
-	const isFavorite = (id) => favorites?.some(item => item.id == id);
-
-	const handleFavorite = async (e, type = '', id = '', isFavorite) => {
-		e.stopPropagation();
-
-		const sessionID = localStorage.getItem('sessionID');
-
-		const body = {
-			media_type: type,
-			media_id: id,
-			favorite: isFavorite ? false : true,
-		};
-
-		try {
-			const response = await axios.post(`https://api.themoviedb.org/3/account/20220153/favorite?session_id=${sessionID}`, body, {
-				headers: {
-					Accept: 'application/json',
-					"Content-Type": 'application/json',
-					Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ODczMWFiNTRhODg2MGZjM2ZiNDg4NTJhYzgxZWVhOSIsInN1YiI6IjY0YzM4N2NlNDMyNTBmMDBhZWUwMWJhZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.E9HKJQHGu6815uWRCVmCdVr5gQQ7F3g-pO-J1RWxBak'
-				}
-			});
-
-			if (response.data.success) favoriteList();
-		} catch (err) {
-			console.log(err);
-		}
-	};
-
-	return (
-		<>
-			<p className='name'>{movie.original_title}</p>
-			<p className='score'>{movie.vote_average?.toFixed(1)}<small>/10</small>⭐</p>
-
-			<button
-				className='favorite'
-				onClick={(e) => handleFavorite(e, movie.media_type, movie.id, isFavorite(movie.id))}
-			>{isFavorite(movie.id) ? <Favorite className='icon' /> : <NotFavorite className='icon' />}</button>
-		</>
-	)
-};
+import { toast } from 'react-toastify';
 
 const Header = () => {
 	const { data, loading, error } = useFetch(requestConfig.types.movie_list, requestConfig.category.movie_list.trending);
@@ -77,7 +33,7 @@ const Header = () => {
 	const favoriteList = async () => {
 		const sessionID = localStorage.getItem('sessionID');
 		try {
-			const res = await axios.get(`https://api.themoviedb.org/3/account/20220153/favorite/movies?language=en-US&page=1&session_id=${sessionID}&sort_by=created_at.desc`, {
+			const res = await axios.get(`https://api.themoviedb.org/3/account/20220153/favorite/movies?language=en-US&page=1&session_id=${sessionID}`, {
 				headers: {
 					accept: 'application/json',
 					Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ODczMWFiNTRhODg2MGZjM2ZiNDg4NTJhYzgxZWVhOSIsInN1YiI6IjY0YzM4N2NlNDMyNTBmMDBhZWUwMWJhZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.E9HKJQHGu6815uWRCVmCdVr5gQQ7F3g-pO-J1RWxBak'
@@ -86,7 +42,13 @@ const Header = () => {
 
 			setFavorites(res.data.results);
 		} catch (err) {
-			console.log(err);
+			toast('Failed to get favorite list', {
+				type: 'error',
+				theme: 'colored',
+				closeButton: true,
+				closeOnClick: true,
+				pauseOnHover: true,
+			});
 		}
 	};
 
@@ -129,7 +91,7 @@ const Header = () => {
 								navigate(`/details/movie/${movie.id}`);
 							}}
 							style={{
-								background: `url(https://image.tmdb.org/t/p/w500${movie.poster_path}) no-repeat center`
+								background: `url(${getImgUrl(requestConfig.imgSizes.w500, movie.poster_path)}) no-repeat center`
 							}}
 						>
 							<Slide movie={movie} favorites={favorites} favoriteList={favoriteList} />
