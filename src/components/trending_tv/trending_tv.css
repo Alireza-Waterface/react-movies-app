@@ -1,0 +1,48 @@
+:root {
+	--accent-color: #eb8307;
+	--light-text: #eee;
+	--dark-card-bg: #242424;
+	--gray-bg-color: #363636;
+	--body-bgc: #111;
+}
+
+.tv-on-air {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+	background-color: var(--gray-bg-color);
+	padding: 1rem;
+	padding-bottom: 2rem;
+	border-radius: 20px;
+
+	& > .title {
+		text-align: center;
+		font-size: 1.5rem;
+		color: var(--accent-color);
+	}
+
+	.tv-card {
+		width: 100%;
+		height: 150px;
+		background-size: cover !important;
+		position: relative;
+		border-radius: 12px 12px 0 0;
+
+		&:nth-child(2) {
+			height: 400px;
+		}
+
+		.title {
+			position: absolute;
+			bottom: -20px;
+			width: 100%;
+			padding: 4px;
+			font-size: 1.25rem;
+			background-color: var(--dark-card-bg);
+			border-radius: 0 0 12px 12px;
+			text-align: center;
+			color: var(--light-text);
+		}
+	}
+}
