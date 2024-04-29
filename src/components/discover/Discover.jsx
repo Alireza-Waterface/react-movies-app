@@ -103,7 +103,7 @@ const Discover = () => {
 							to={`/?&country=${discover.country}&language=${discover.language}&genre=${discover.genre}&sort=${discover.sort}&minScore=${discover.minScore}&year=${discover.year}&adult=${discover.adult}&keyword=${discover.keyword}&artist=${discover.artist}&time=${discover.time}&votes=${discover.votes}&page=${parseInt(discover.page) + 1}`}
 						><span>{parseInt(discover.page) + 1}</span></Link>
 					}
-					{ discover.page < 500 &&
+					{ discover.page < 500 && data?.total_pages > 2 &&
 						<Link
 							className='btn'
 							to={`/?&country=${discover.country}&language=${discover.language}&genre=${discover.genre}&sort=${discover.sort}&minScore=${discover.minScore}&year=${discover.year}&adult=${discover.adult}&keyword=${discover.keyword}&artist=${discover.artist}&time=${discover.time}&votes=${discover.votes}&page=${data?.total_pages > 500 ? 500 : data?.total_pages}`}
