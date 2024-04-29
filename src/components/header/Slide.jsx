@@ -14,6 +14,17 @@ const Slide = ({movie, favorites = [], favoriteList}) => {
 
 		const sessionID = localStorage.getItem('sessionID');
 
+		if (!sessionID) {
+			toast('Login to your account first!', {
+				type: 'error',
+				theme: 'colored',
+				closeButton: true,
+				closeOnClick: true,
+				pauseOnHover: true,
+			});
+			return;
+		}
+
 		const body = {
 			media_type: type,
 			media_id: id,

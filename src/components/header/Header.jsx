@@ -32,6 +32,8 @@ const Header = () => {
 
 	const favoriteList = async () => {
 		const sessionID = localStorage.getItem('sessionID');
+		console.log(sessionID);
+		if (!sessionID) return;
 		try {
 			const res = await axios.get(`https://api.themoviedb.org/3/account/20220153/favorite/movies?language=en-US&page=1&session_id=${sessionID}`, {
 				headers: {
