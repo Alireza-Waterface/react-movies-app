@@ -37,3 +37,8 @@ body {
 	color: var(--light-text);
 	transition: all 0.2s;
 }
+
+*::selection {
+	color: var(--accent-color);
+	background-color: var(--light-text);
+}
