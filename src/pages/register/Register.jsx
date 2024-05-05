@@ -16,10 +16,8 @@ const Register = () => {
 				},
 			});
 
-			const url = location.origin;
-
 			const navLink = document.createElement('a');
-			navLink.setAttribute('href', `https://www.themoviedb.org/authenticate/${res?.data?.request_token}?redirect_to=${url}/approved`);
+			navLink.setAttribute('href', `https://www.themoviedb.org/authenticate/${res?.data?.request_token}?redirect_to=${location.origin}/approved`);
 			navLink.click();
 			
 			setError(false);
