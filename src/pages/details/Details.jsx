@@ -13,6 +13,8 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import PendingIcon from '@mui/icons-material/Pending';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
+import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 
 import List from '../../components/list/List';
 
@@ -21,11 +23,102 @@ import img_placeholder from '../../images/img-placeholder.png';
 import Loader from '../../components/loader/Loader';
 import Error from '../../components/error/Error';
 
+import { useState, useEffect } from 'react';
+
+import axios from 'axios';
+
+import { toast } from 'react-toastify';
+
 const Details = () => {
 	const category = useParams().category;
 	const id = useParams().id;
 
 	const { data, loading, error } = useFetch(requestConfig.types.details, category, undefined, undefined, id);
+
+	const [isFavorite, setIsFavorite] = useState(false);
+
+	useEffect(() => {
+		(async () => {
+			const sessionID = localStorage.getItem('sessionID');
+			console.log(sessionID);
+			if (!sessionID) return;
+			try {
+				const res = await axios.get(`https://api.themoviedb.org/3/account/20220153/favorite/${category == 'movie' ? 'movies' : 'tv'}?language=en-US&page=1&session_id=${sessionID}`, {
+					headers: {
+						accept: 'application/json',
+						Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ODczMWFiNTRhODg2MGZjM2ZiNDg4NTJhYzgxZWVhOSIsInN1YiI6IjY0YzM4N2NlNDMyNTBmMDBhZWUwMWJhZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.E9HKJQHGu6815uWRCVmCdVr5gQQ7F3g-pO-J1RWxBak'
+					}
+				});
+
+				if (res.status == 200) {
+					const isFavorite = res.data.results.some( item => item.id == id);
+					setIsFavorite(isFavorite);
+				}
+			} catch (err) {
+				console.log(err);
+			}
+		})()
+	}, [id, category]);
+
+	const handleFavorite = async (e, type = '', id = '', isFavorite) => {
+		const sessionID = localStorage.getItem('sessionID');
+
+		if (!sessionID) {
+			toast('Login to your account first!', {
+				type: 'error',
+				theme: 'colored',
+				closeButton: true,
+				closeOnClick: true,
+				pauseOnHover: true,
+			});
+			return;
+		}
+
+		const body = {
+			media_type: type,
+			media_id: id,
+			favorite: !isFavorite,
+		};
+
+		try {
+			const response = await axios.post(`https://api.themoviedb.org/3/account/20220153/favorite?session_id=${sessionID}`, body, {
+				headers: {
+					Accept: 'application/json',
+					"Content-Type": 'application/json',
+					Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ODczMWFiNTRhODg2MGZjM2ZiNDg4NTJhYzgxZWVhOSIsInN1YiI6IjY0YzM4N2NlNDMyNTBmMDBhZWUwMWJhZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.E9HKJQHGu6815uWRCVmCdVr5gQQ7F3g-pO-J1RWxBak'
+				}
+			});
+
+			if (response.data.success) {
+				toast(response.data.status_code == 13 ? 'Removed from favorites' : 'Added to favorites', {
+					type: 'success',
+					theme: 'colored',
+					closeButton: true,
+					closeOnClick: true,
+					pauseOnHover: true,
+				});
+
+				setIsFavorite(prev => !prev);
+			} else {
+				toast('An error accured', {
+					type: 'error',
+					theme: 'colored',
+					closeButton: true,
+					closeOnClick: true,
+					pauseOnHover: true,
+				});
+			}
+		} catch (err) {
+			console.log(err);
+			toast(err.response.data.status_message, {
+				type: 'error',
+				theme: 'colored',
+				closeButton: true,
+				closeOnClick: true,
+				pauseOnHover: true,
+			});
+		}
+	};
 
 	return (
 		<div className='details'>
@@ -111,6 +204,17 @@ const Details = () => {
 								</div>
 								<span>{data?.vote_count} votes</span>
 							</div>
+
+							<button
+								className='favorite'
+								onClick={(e) => handleFavorite(e, category, id, isFavorite)}
+								>
+								{ isFavorite ?
+									<FavoriteRoundedIcon className='icon' />
+									:
+									<FavoriteBorderRoundedIcon className='icon' />
+								}
+							</button>
 						</div>
 					</div>
 
