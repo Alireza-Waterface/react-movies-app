@@ -40,7 +40,7 @@ const getUrl = (type, category, query, page, id, discover) => {
 			}
 			break;
 
-		case requestConfig.types.details: // movie or tv deatils
+		case requestConfig.types.details: // movie or tv details
 			if (category === requestConfig.category.details.movie) {
 				return `${requestConfig.BASE_URL}movie/${id}?append_to_response=videos,similar,recommendations&language=en-US`;
 			} else if (category === requestConfig.category.details.tv) {
@@ -51,7 +51,7 @@ const getUrl = (type, category, query, page, id, discover) => {
 			break;
 
 		case requestConfig.types.discover: //advanced search
-			return `${requestConfig.BASE_URL}discover/movie?include_adult=${discover.adult}${discover.language == 'all' ? '' : `&with_original_language=${discover.language?.toLowerCase()}`}&page=1&primary_release_date.gte=${discover.year}-01-01${discover.sort == 'none' ? '' : `&sort_by=${discover.sort}`}&vote_average.gte=${discover.minScore}&vote_count.gte=${discover.votes}${discover.genre == 'all' ? '' : `&with_genres=${discover.genre?.toLowerCase()}`}${discover.keyword == '' ? '' : `&with_keywords=${discover.keyword?.toLowerCase()}`}${discover.country == 'all' ? '' : `&with_origin_country=${discover.country}`}${discover.artist == '' ? '' : `&with_people=${discover.artist?.toLowerCase()}`}&with_runtime.gte=${discover.time}`
+			return `${requestConfig.BASE_URL}discover/movie?include_adult=${discover.adult}${discover.language == 'all' ? '' : `&with_original_language=${discover.language?.toLowerCase()}`}&page=1&primary_release_date.gte=${discover.year}-01-01${discover.sort == 'none' ? '' : `&sort_by=${discover.sort}`}&vote_average.gte=${discover.minScore}&vote_count.gte=${discover.votes}${discover.genre == 'all' ? '' : `&with_genres=${discover.genre?.toLowerCase()}`}${discover.country == 'all' ? '' : `&with_origin_country=${discover.country}`}&with_runtime.gte=${discover.time}`
 
 		default: return;
 	}

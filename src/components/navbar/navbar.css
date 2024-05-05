@@ -1,5 +1,5 @@
 .navbar {
-	background-color: #66666666;
+	background-color: #88888833;
 	height: 80px;
 	display: flex;
 	align-items: center;
@@ -7,7 +7,7 @@
 	top: 0;
 	z-index: 12;
 	/* border-bottom: 1px solid var(--accent-color); */
-	backdrop-filter: blur(15px) brightness(60%);
+	backdrop-filter: blur(6px) brightness(60%);
 
 	.wrapper {
 		max-width: 1600px;
@@ -71,7 +71,6 @@
 					align-items: center;
 					gap: 1rem;
 					padding: 8px;
-					height: 100px;
 					text-decoration: none;
 					color: var(--light-text);
 					border-bottom: 1px solid #555;

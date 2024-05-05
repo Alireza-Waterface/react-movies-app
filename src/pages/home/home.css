@@ -7,7 +7,7 @@
 	margin: 0 auto;
 	cursor: pointer;
 	transition: all 0.2s;
-	color: #eee;
+	color: var(--light-text);
 	border-bottom: 2px solid #eb8307;
 	display: flex;
 	align-items: center;

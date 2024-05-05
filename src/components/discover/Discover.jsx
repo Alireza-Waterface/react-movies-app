@@ -76,7 +76,7 @@ const Discover = () => {
 			{ !loading && error && <Error /> }
 			{ loading && !error && <Loader /> }
 			{ !loading && !error &&
-				data?.results?.length === 0 ? <p className='nothing'>No movie found!</p>
+				data?.results?.length === 0 ? <p className='nothing'>No movie found! <br /> Try changing filter options</p>
 				:
 				data?.results?.map( movie => (
 					<MovieTile key={movie.id} movie={movie} />
