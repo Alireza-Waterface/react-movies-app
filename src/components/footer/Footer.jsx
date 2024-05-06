@@ -10,6 +10,8 @@ import TelegramIcon from '@mui/icons-material/Telegram';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import CodeIcon from '@mui/icons-material/Code';
+import LiveTvIcon from '@mui/icons-material/LiveTv';
 
 const Footer = () => {
 
@@ -34,7 +36,7 @@ const Footer = () => {
 				</div>
 
 				<div className="section contact">
-					<p className="title">Contact</p>
+					<legend className="title">Contact</legend>
 					<address>
 						<ul>
 							<li><a href="mailto:Alireza.waterface@outlook.com" className="email">
@@ -53,8 +55,22 @@ const Footer = () => {
 					</address>
 				</div>
 
+				<div className="section links">
+					<legend className='title'>Useful links</legend>
+					<ul>
+						<li><a href="https://www.themoviedb.org/" target='_blank' className="link">
+							<LiveTvIcon />
+							TMDB
+						</a></li>
+						<li><a href="https://waterface.ir/" target='_blank' className="link">
+							<CodeIcon />
+							Developer page
+						</a></li>
+					</ul>
+				</div>
+
 				<div className="section social">
-					<p className="title">Social</p>
+					<legend className="title">Social</legend>
 					<ul>
 						<li><a className='social-link telegram' href="https://t.me/+989155706085">
 							<TelegramIcon className='icon' />
