@@ -90,6 +90,7 @@ const useFetch = (type = '', category = '', query = '', page = 1, id = '', disco
 				if (err.name != 'CanceledError') {
 					console.log(err);
 					setError(true);
+					setLoading(false);
 				}
 			}
 		})();

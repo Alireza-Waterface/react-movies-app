@@ -28,13 +28,15 @@ const Details = lazy(() => import('./pages/details/Details'));
 const E404 = lazy(() => import('./pages/e404/E404'));
 const Approved = lazy(() => import('./pages/approvedAcount/Approved'));
 
+import { UserProvider } from './userProvider';
+
 const Layout = () => (
-    <>
+    <UserProvider>
         <TopBar />
         <Navbar />
         <Outlet />
         <Footer />
-    </>
+    </UserProvider>
 );
 
 const router = createBrowserRouter([
