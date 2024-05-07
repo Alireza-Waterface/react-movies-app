@@ -109,11 +109,9 @@
 				align-items: center;
 				justify-content: flex-end;
 				gap: 2rem;
+				list-style-type: none;
 				
 				.item {
-					display: flex;
-					align-items: center;
-					gap: 8px;
 					cursor: pointer;
 					position: relative;
 
@@ -122,11 +120,14 @@
 						color: var(--light-text);
 						font-size: 1.25rem;
 						position: relative;
+						display: flex;
+						align-items: center;
+						gap: 8px;
 
 						&::after {
 							content: '';
 							position: absolute;
-							bottom: -5px;
+							bottom: -7px;
 							left: 0;
 							height: 2px;
 							width: 0;
@@ -218,7 +219,7 @@
 						transition: all .2s ease;
 					}
 
-					&:hover > .nav-icon {
+					&:hover .link .nav-icon {
 						transform: scale(1.25);
 					}
 					&:hover .link::after {

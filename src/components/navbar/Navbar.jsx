@@ -83,12 +83,16 @@ const Navbar = () => {
 				<div className='links'>
 					<ul className='links-list'>
 						<li className='item'>
-							<Link className='link' to={'/contact'}>Contact</Link>
-							<HeadsetMicOutlinedIcon className='nav-icon' />
+							<Link className='link' to={'/contact'}>
+								Contact
+								<HeadsetMicOutlinedIcon className='nav-icon' />
+							</Link>
 						</li>
 						<li className='item'>
-							<Link className='link' to={'/artists/1'}>Artists</Link>
-							<TheaterComedyIcon className='nav-icon' />
+							<Link className='link' to={'/artists/1'}>
+								Artists
+								<TheaterComedyIcon className='nav-icon' />
+							</Link>
 						</li>
 						<li className='item movies'
 							onMouseOver={(e) => {
@@ -100,8 +104,10 @@ const Navbar = () => {
 								e.stopPropagation();
 							}}
 						>
-							<p className='link'>Movies</p>
-							<LocalMoviesIcon className='nav-icon' />
+							<p className='link'>
+								Movies
+								<LocalMoviesIcon className='nav-icon' />
+							</p>
 							<div className='dropdown'>
 								<ul>
 									<li>
@@ -124,8 +130,10 @@ const Navbar = () => {
 							</div>
 						</li>
 						<li className='item'>
-							<Link className='link' to={'/'}>Home</Link>
-							<CottageOutlinedIcon className='nav-icon' />
+							<Link className='link' to={'/'}>
+								Home
+								<CottageOutlinedIcon className='nav-icon' />
+							</Link>
 						</li>
 					</ul>
 				</div>

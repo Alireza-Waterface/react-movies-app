@@ -36,6 +36,7 @@ const Details = () => {
 	const { data, loading, error } = useFetch(requestConfig.types.details, category, undefined, undefined, id);
 
 	const [isFavorite, setIsFavorite] = useState(false);
+	const [isLoading, setIsLoading] = useState(null);
 
 	useEffect(() => {
 		(async () => {
@@ -43,6 +44,7 @@ const Details = () => {
 			console.log(sessionID);
 			if (!sessionID) return;
 			try {
+				setIsLoading(true);
 				const res = await axios.get(`https://api.themoviedb.org/3/account/20220153/favorite/${category == 'movie' ? 'movies' : 'tv'}?language=en-US&page=1&session_id=${sessionID}`, {
 					headers: {
 						accept: 'application/json',
@@ -53,14 +55,16 @@ const Details = () => {
 				if (res.status == 200) {
 					const isFavorite = res.data.results.some( item => item.id == id);
 					setIsFavorite(isFavorite);
+					setIsLoading(false);
 				}
 			} catch (err) {
 				console.log(err);
+				setIsLoading(false);
 			}
 		})()
 	}, [id, category]);
 
-	const handleFavorite = async (e, type = '', id = '', isFavorite) => {
+	const handleFavorite = async (type = '', id = '', isFavorite) => {
 		const sessionID = localStorage.getItem('sessionID');
 
 		if (!sessionID) {
@@ -81,6 +85,7 @@ const Details = () => {
 		};
 
 		try {
+			setIsLoading(true);
 			const response = await axios.post(`https://api.themoviedb.org/3/account/20220153/favorite?session_id=${sessionID}`, body, {
 				headers: {
 					Accept: 'application/json',
@@ -99,6 +104,7 @@ const Details = () => {
 				});
 
 				setIsFavorite(prev => !prev);
+				setIsLoading(false);
 			} else {
 				toast('An error accured', {
 					type: 'error',
@@ -107,6 +113,7 @@ const Details = () => {
 					closeOnClick: true,
 					pauseOnHover: true,
 				});
+				setIsLoading(false);
 			}
 		} catch (err) {
 			console.log(err);
@@ -117,6 +124,7 @@ const Details = () => {
 				closeOnClick: true,
 				pauseOnHover: true,
 			});
+			setIsLoading(false);
 		}
 	};
 
@@ -195,8 +203,8 @@ const Details = () => {
 							</p>
 							<div className='score'>
 								<div style={{
-									color: data?.vote_average < 4 ? 'red' :
-										(data?.vote_average >= 4 && data?.vote_average < 6.5) ? 'yellow' :
+									color: data?.vote_average < 4 ? '#f22' :
+										(data?.vote_average >= 4 && data?.vote_average < 6.5) ? '#ff2' :
 										'#2f2',
 								}}>
 									{data?.vote_average?.toFixed(1)}
@@ -207,13 +215,14 @@ const Details = () => {
 
 							<button
 								className='favorite'
-								onClick={(e) => handleFavorite(e, category, id, isFavorite)}
+								onClick={() => handleFavorite(category, id, isFavorite)}
+								disabled={isLoading}
+								style={{
+									filter: isLoading ? 'brightness(30%)' : 'unset',
+								}}
 								>
-								{ isFavorite ?
-									<FavoriteRoundedIcon className='icon' />
-									:
-									<FavoriteBorderRoundedIcon className='icon' />
-								}
+								{ isFavorite && <FavoriteRoundedIcon className='icon' /> }
+								{ !isFavorite && <FavoriteBorderRoundedIcon className='icon' /> }
 							</button>
 						</div>
 					</div>

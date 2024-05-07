@@ -65,6 +65,7 @@ const Discover = () => {
 			} catch (err) {
 				if (err.name != 'CanceledError') {
 					console.log(err);
+					setLoading(false);
 					setError(true);
 				}
 			}
