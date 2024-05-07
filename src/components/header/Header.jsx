@@ -23,6 +23,8 @@ import axios from 'axios';
 
 import { toast } from 'react-toastify';
 
+import { useUser } from '../../userProvider';
+
 const Header = () => {
 	const { data, loading, error } = useFetch(requestConfig.types.movie_list, requestConfig.category.movie_list.trending);
 	
@@ -30,10 +32,10 @@ const Header = () => {
 
 	const [favorites, setFavorites] = useState([]);
 
+	const {sessionID} = useUser();
+
 	const favoriteList = async () => {
-		const sessionID = localStorage.getItem('sessionID');
-		console.log(sessionID);
-		if (!sessionID) return;
+		if (sessionID == null || sessionID == 'null') return;
 		try {
 			const res = await axios.get(`https://api.themoviedb.org/3/account/20220153/favorite/movies?language=en-US&page=1&session_id=${sessionID}`, {
 				headers: {

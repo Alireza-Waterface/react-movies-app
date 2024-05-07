@@ -5,16 +5,21 @@ import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 
 import { toast } from 'react-toastify';
+import { useState } from "react";
+
+import { useUser } from "../../userProvider";
 
 const Slide = ({movie, favorites = [], favoriteList}) => {
 	const isFavorite = (id) => favorites?.some(item => item.id == id);
 
+	const [isLoading, setIsLoading] = useState(null);
+
+	const {sessionID} = useUser();
+
 	const handleFavorite = async (e, type = '', id = '', isFavorite) => {
 		e.stopPropagation();
 
-		const sessionID = localStorage.getItem('sessionID');
-
-		if (!sessionID) {
+		if (sessionID == null || sessionID == 'null') {
 			toast('Login to your account first!', {
 				type: 'error',
 				theme: 'colored',
@@ -32,6 +37,7 @@ const Slide = ({movie, favorites = [], favoriteList}) => {
 		};
 
 		try {
+			setIsLoading(true);
 			const response = await axios.post(`https://api.themoviedb.org/3/account/20220153/favorite?session_id=${sessionID}`, body, {
 				headers: {
 					Accept: 'application/json',
@@ -41,6 +47,7 @@ const Slide = ({movie, favorites = [], favoriteList}) => {
 			});
 
 			if (response.data.success) {
+				await favoriteList();
 				toast(response.data.status_code == 13 ? 'Removed from favorites' : 'Added to favorites', {
 					type: 'success',
 					theme: 'colored',
@@ -48,7 +55,7 @@ const Slide = ({movie, favorites = [], favoriteList}) => {
 					closeOnClick: true,
 					pauseOnHover: true,
 				});
-				favoriteList();
+				setIsLoading(false);
 			} else {
 				toast('An error accured', {
 					type: 'error',
@@ -57,6 +64,7 @@ const Slide = ({movie, favorites = [], favoriteList}) => {
 					closeOnClick: true,
 					pauseOnHover: true,
 				});
+				setIsLoading(false);
 			}
 		} catch (err) {
 			console.log(err);
@@ -67,6 +75,7 @@ const Slide = ({movie, favorites = [], favoriteList}) => {
 				closeOnClick: true,
 				pauseOnHover: true,
 			});
+			setIsLoading(false);
 		}
 	};
 
@@ -78,7 +87,16 @@ const Slide = ({movie, favorites = [], favoriteList}) => {
 			<button
 				className='favorite'
 				onClick={(e) => handleFavorite(e, movie.media_type, movie.id, isFavorite(movie.id))}
-			>{isFavorite(movie.id) ? <FavoriteRoundedIcon className='icon' /> : <FavoriteBorderRoundedIcon className='icon' />}</button>
+				disabled={isLoading}
+				style={{
+					filter: isLoading ? 'brightness(50%)' : 'unset',
+				}}
+			>
+				{ isFavorite(movie.id) ?
+					<FavoriteRoundedIcon className='icon' /> :
+					<FavoriteBorderRoundedIcon className='icon' />
+				}
+			</button>
 		</>
 	)
 };

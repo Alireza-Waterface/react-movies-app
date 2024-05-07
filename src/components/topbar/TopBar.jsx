@@ -7,6 +7,8 @@ import logo from '../../images/wfmoviefull.png';
 
 import { useEffect } from 'react';
 
+import { useUser } from '../../userProvider';
+
 const TopBar = () => {
 	useEffect(() => {
 		if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -25,6 +27,8 @@ const TopBar = () => {
 			rootClassList.add('light');
 		}
 	};
+
+	const { sessionID } = useUser();
 
 	return (
 		<div className='top-bar'>
@@ -45,12 +49,12 @@ const TopBar = () => {
 				</div>
 
 				<div className='register'>
-					<Link className='reg-link' to={localStorage.getItem('sessionID') ? '/dashboard' : '/register'}>
+					<Link className='reg-link' to={sessionID == null || sessionID == 'null' ? '/register' : '/dashboard'}>
 						
-						{ localStorage.getItem('sessionID') ?
-							'Dashboard'
-							:
+						{ sessionID == null || sessionID == 'null' ?
 							<>Login <span>/</span> SignUp</>
+							:
+							'Dashboard'
 						}
 						<LoginOutlinedIcon className='register-icon' />
 					</Link>

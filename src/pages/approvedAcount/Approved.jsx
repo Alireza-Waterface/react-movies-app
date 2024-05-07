@@ -1,18 +1,18 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import './approved.css';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import axios from 'axios';
+import { useUser } from '../../userProvider';
 
 const Approved = () => {
 	const [searchParams] = useSearchParams();
 	const requestToken = searchParams.get('request_token');
 
-	const [error, setError] = useState(() => {
-		localStorage.getItem('sessionID') ? true : false;
-	});
+	const {sessionID, updateSessionID} = useUser();
 
 	useEffect(() => {
-		if (localStorage.getItem('sessionID')) return;
+		if (sessionID != null || sessionID != 'null') return;
+
 		( async () => {
 			try {
 				const response = await axios.post('https://api.themoviedb.org/3/authentication/session/new', {
@@ -26,22 +26,18 @@ const Approved = () => {
 				});
 
 				if (response.data.session_id) {
-					localStorage.setItem('sessionID', response.data.session_id);
-					setError(false);
-				} else {
-					setError(true);
+					updateSessionID(response.data.session_id);
 				}
 			} catch (err) {
 				console.log(err);
-				setError(true);
 			}
-		})()
-	}, [requestToken]);
+		})();
+	}, [requestToken, sessionID, updateSessionID]);
 
 	return (
 		<div className="approved">
 			<div className="wrapper">
-				{error ?
+				{sessionID == null || sessionID == 'null' ?
 					<p className="error">Failed to approve account!</p>
 					:
 					<p className="success">Your account approved, you are now able to use all features!</p>
