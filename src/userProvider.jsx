@@ -1,7 +1,8 @@
-/* eslint-disable react/prop-types */
 import { createContext, useContext, useState, useEffect } from "react";
 
 const UserContext = createContext();
+
+import PropTypes from 'prop-types';
 
 const UserProvider = ({children}) => {
 	const [sessionID, setSessionID] = useState(() => {
@@ -37,6 +38,10 @@ const useUser = () => {
 	}
 
 	return user;
+};
+
+UserProvider.propTypes = {
+	children: PropTypes.any,
 };
 
 export { useUser, UserProvider };
