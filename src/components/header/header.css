@@ -1,10 +1,3 @@
-:root {
-	--accent-color: #eb8307;
-	--light-text: #eee;
-	--dark-card-bg: #242424;
-	--body-bgc: #111;
-}
-
 .header {
 	/* height: 70vh; */
 	.wrapper {

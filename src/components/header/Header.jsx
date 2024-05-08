@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import './header.css';
 
 import Slide from './Slide';
@@ -58,7 +57,7 @@ const Header = () => {
 
 	useEffect(() => {
 		favoriteList();
-	}, [])
+	}, []);
 
 	return (
 		<div className='header'>
@@ -73,7 +72,7 @@ const Header = () => {
 					loop={true}
 					slidesPerView={'auto'}
 					coverflowEffect={{
-						rotate: 0,
+						rotate: 5,
 						stretch: 0,
 						depth: 100,
 						modifier: 3,

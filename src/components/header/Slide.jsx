@@ -81,7 +81,7 @@ const Slide = ({movie, favorites = [], favoriteList}) => {
 
 	return (
 		<>
-			<p className='name'>{movie.original_title}</p>
+			<p className='name'>{movie.title}</p>
 			<p className='score'>{movie.vote_average?.toFixed(1)}<small>/10</small>⭐</p>
 
 			<button
