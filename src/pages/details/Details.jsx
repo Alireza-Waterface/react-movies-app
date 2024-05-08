@@ -29,6 +29,8 @@ import axios from 'axios';
 
 import { toast } from 'react-toastify';
 
+import {useUser} from '../../userProvider';
+
 const Details = () => {
 	const category = useParams().category;
 	const id = useParams().id;
@@ -38,11 +40,11 @@ const Details = () => {
 	const [isFavorite, setIsFavorite] = useState(false);
 	const [isLoading, setIsLoading] = useState(null);
 
+	const {sessionID} = useUser();
+
 	useEffect(() => {
 		(async () => {
-			const sessionID = localStorage.getItem('sessionID');
-			console.log(sessionID);
-			if (!sessionID) return;
+			if (sessionID == null || sessionID == 'null') return;
 			try {
 				setIsLoading(true);
 				const res = await axios.get(`https://api.themoviedb.org/3/account/20220153/favorite/${category == 'movie' ? 'movies' : 'tv'}?language=en-US&page=1&session_id=${sessionID}`, {
@@ -62,12 +64,10 @@ const Details = () => {
 				setIsLoading(false);
 			}
 		})()
-	}, [id, category]);
+	}, [id, category, sessionID]);
 
 	const handleFavorite = async (type = '', id = '', isFavorite) => {
-		const sessionID = localStorage.getItem('sessionID');
-
-		if (!sessionID) {
+		if (sessionID == null || sessionID == 'null') {
 			toast('Login to your account first!', {
 				type: 'error',
 				theme: 'colored',
