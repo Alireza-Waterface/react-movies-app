@@ -16,7 +16,7 @@
 	--accent-color: #eb8307;
 	--light-text: #111;
 	--dark-card-bg: #ddd;
-	--gray-bg-color: #e3e3e3;
+	--gray-bg-color: #d3d3d3;
 	--body-bgc: #eee;
 	--details-text-color: #eee;
 	--score-in-card-green: #00a500;
@@ -41,4 +41,20 @@ body {
 *::selection {
 	color: var(--accent-color);
 	background-color: var(--light-text);
+}
+
+::-webkit-scrollbar {
+	/* background-color: var(--gray-bg-color); */
+	border-radius: 4px;
+	width: 13px;
+}
+
+::-webkit-scrollbar-track {
+	background-color: var(--gray-bg-color);
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: var(--accent-color);
+	border-radius: 4px;
 }

@@ -15,7 +15,6 @@ import TopBar from './components/topbar/TopBar';
 import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
 import Loader from './components/loader/Loader';
-import Dashboard from './pages/dashboard/Dashboard';
 
 const Artists = lazy(() => import('./pages/artists/Artists'));
 const Artist = lazy(() => import('./pages/artist/Artist'));
@@ -25,6 +24,7 @@ const Movies = lazy(() => import('./pages/movies/Movies'));
 const Register = lazy(() => import('./pages/register/Register'));
 const Series = lazy(() => import('./pages/series/Series'));
 const Details = lazy(() => import('./pages/details/Details'));
+const Dashboard = lazy(() => import('./pages/dashboard/Dashboard'));
 const E404 = lazy(() => import('./pages/e404/E404'));
 const Approved = lazy(() => import('./pages/approvedAcount/Approved'));
 
