@@ -15,6 +15,7 @@ import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
+import GradeIcon from '@mui/icons-material/Grade';
 
 import List from '../../components/list/List';
 
@@ -39,6 +40,9 @@ const Details = () => {
 
 	const [isFavorite, setIsFavorite] = useState(false);
 	const [isLoading, setIsLoading] = useState(null);
+
+	const [rateLoader, setRateLoader] = useState(false);
+	const [rated, setRated] = useState([]);
 
 	const {sessionID} = useUser();
 
@@ -95,7 +99,7 @@ const Details = () => {
 			});
 
 			if (response.data.success) {
-				toast(response.data.status_code == 13 ? 'Removed from favorites' : 'Added to favorites', {
+				toast.success(response.data.status_code == 13 ? 'Removed from favorites' : 'Added to favorites', {
 					type: 'success',
 					theme: 'colored',
 					closeButton: true,
@@ -125,6 +129,69 @@ const Details = () => {
 				pauseOnHover: true,
 			});
 			setIsLoading(false);
+		}
+	};
+
+	const ratedList = async () => {
+		try {
+			const res = await axios.get(`https://api.themoviedb.org/3/account/20220153/rated/${category == 'movie' ? 'movies' : 'tv'}?language=en-US&session_id=${sessionID}`, {
+				headers: {
+					Accept: 'application/json',
+					Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ODczMWFiNTRhODg2MGZjM2ZiNDg4NTJhYzgxZWVhOSIsInN1YiI6IjY0YzM4N2NlNDMyNTBmMDBhZWUwMWJhZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.E9HKJQHGu6815uWRCVmCdVr5gQQ7F3g-pO-J1RWxBak'
+				}
+			});
+
+			setRated(res.data.results);
+		} catch(err) {
+			console.log(err);
+		}
+	};
+
+	useEffect(() => {
+		ratedList();
+	})
+
+	const addRate = async (value) => {
+		setRateLoader(true);
+		try {
+			const res = await axios.post(`https://api.themoviedb.org/3/${category == 'movie' ? 'movie' : 'tv'}/${id}/rating?session_id=${sessionID}`, {
+				value,
+			}, {
+				headers: {
+					Accept: 'application/json',
+					"Content-Type": 'application/json;charset=utf-8',
+					Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ODczMWFiNTRhODg2MGZjM2ZiNDg4NTJhYzgxZWVhOSIsInN1YiI6IjY0YzM4N2NlNDMyNTBmMDBhZWUwMWJhZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.E9HKJQHGu6815uWRCVmCdVr5gQQ7F3g-pO-J1RWxBak'
+				}
+			});
+
+			if (res.data.status_code == 1) {
+				toast.success('Rate added', {
+					type: 'success',
+					theme: 'colored',
+					closeButton: true,
+					closeOnClick: true,
+					pauseOnHover: true,
+				})
+			} else if (res.data.status_code == 12) {
+				toast.success('Rate updated', {
+					type: 'success',
+					theme: 'colored',
+					closeButton: true,
+					closeOnClick: true,
+					pauseOnHover: true,
+				})
+			}
+
+			setRateLoader(false);
+		} catch(err) {
+			setRateLoader(false);
+			toast.error('Failed to submit rate', {
+				type: 'error',
+				theme: 'colored',
+				closeButton: true,
+				closeOnClick: true,
+				pauseOnHover: true,
+			})
 		}
 	};
 
@@ -163,7 +230,7 @@ const Details = () => {
 								rel='noreferrer'
 								target='_blank'
 							>
-								<PublicOutlinedIcon className='icon' />
+								<LanguageOutlinedIcon className='icon' />
 								Movie homepage</a>
 							{ data?.spoken_languages?.length > 0 &&
 								<div className='langs flex-items-center font-20'>
@@ -188,8 +255,10 @@ const Details = () => {
 								}
 								{ data?.production_countries?.length > 0 &&
 									<ul className='production-countries font-20'>
-										<p className='flex-items-center'><LanguageOutlinedIcon className='icon' />
-										Production countries:</p>
+										<p className='flex-items-center'>
+											<PublicOutlinedIcon className='icon' />
+											Production countries:
+										</p>
 										{ data?.production_countries?.map( country => (
 											<li className='country' key={country.iso_3166_1}>{country.name}</li>
 										)) }
@@ -227,22 +296,31 @@ const Details = () => {
 						</div>
 					</div>
 
+					<div className="rating">
+						<p>Rate this {category == 'movie' ? 'movie' : 'tv serie'}</p>
+						<div>
+							<GradeIcon className='icon' onClick={() => addRate(1)} />
+							<GradeIcon className='icon' onClick={() => addRate(2)} />
+							<GradeIcon className='icon' onClick={() => addRate(3)} />
+							<GradeIcon className='icon' onClick={() => addRate(4)} />
+							<GradeIcon className='icon' onClick={() => addRate(5)} />
+							<GradeIcon className='icon' onClick={() => addRate(6)} />
+							<GradeIcon className='icon' onClick={() => addRate(7)} />
+							<GradeIcon className='icon' onClick={() => addRate(8)} />
+							<GradeIcon className='icon' onClick={() => addRate(9)} />
+							<GradeIcon className='icon' onClick={() => addRate(10)} />
+						</div>
+
+						{ rateLoader &&
+							<div className="loader">Please wait...</div>
+						}
+
+						{ rated.length > 0 && <span>Prev: {rated.find( item => item.id == id)?.rating ?? 'Not rated'}</span> }
+					</div>
+
 					<div className='videos'>
 						{data?.videos?.results?.map( video => {
-							if (video.type === 'Trailer') {
-								return <div className='video' key={video.id}>
-									<p className='title'>{video.name}</p>
-									<iframe
-										className='video-frame'
-										src={`https://www.youtube.com/embed/${video.key}`}
-										title="video"
-									></iframe>
-								</div>
-							}
-						})}
-						
-						{data?.videos?.results?.map( video => {
-							if (video.type === 'Teaser') {
+							if (video.type === 'Trailer' || video.type === 'Teaser') {
 								return <div className='video' key={video.id}>
 									<p className='title'>{video.name}</p>
 									<iframe
