@@ -10,7 +10,7 @@ const getUrl = (type, category, query, page, id, discover) => {
 	switch (type) {
 		case requestConfig.types.movie_list: // get list of movies
 			if (category === requestConfig.category.movie_list.trending) { // trending movies of week
-				return `${requestConfig.BASE_URL}trending/movie/week?language=en-US`;
+				return `${requestConfig.BASE_URL}trending/movie/week?language=en-US&page=${page}`;
 			} else { // category based list of movies
 				return `${requestConfig.BASE_URL}movie/${category}?language=en-US&page=${page}`;
 			}

@@ -39,6 +39,7 @@
 	
 				.title {
 					font-size: 3rem;
+					max-width: 80%;
 				}
 				.genres {
 					display: flex;
@@ -131,6 +132,49 @@
 				.icon {
 					fill: var(--accent-color);
 				}
+			}
+		}
+
+		.rating {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 1rem;
+			background-color: var(--dark-card-bg);
+			padding: 1rem 5%;
+			position: relative;
+
+			&:hover .icon {
+				filter: brightness(100%);
+			}
+
+			p {
+				color: var(--accent-color);
+				font-size: 2rem;
+			}
+			.icon {
+				font-size: 3rem;
+				fill: var(--accent-color);
+				filter: brightness(50%);
+				transition: all 0.1s;
+				cursor: pointer;
+
+				&:hover ~ &:not(:hover) {
+					filter: brightness(50%);
+				}
+			}
+
+			.loader {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				background-color: #000a;
+				backdrop-filter: blur(2px);
+				display: grid;
+				place-items: center;
+				top: 0;
+				left: 0;
+				font-size: 2rem;
 			}
 		}
 

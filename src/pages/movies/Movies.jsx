@@ -78,14 +78,15 @@ const Movies = () => {
 							><span>{parseInt(page) + 1}</span>
 						</Link>
 					}
-					{ parseInt(page) < (data?.total_pages <= 500 ? data?.total_pages : 500) &&
+					{ parseInt(page) < (data?.total_pages <= 500 ? data?.total_pages : 500) && parseInt(page) < 499 &&
 						<Link
 							className='navigator'
 							to={`/movies/${category}/${data?.total_pages > 500 ? 500 : data?.total_pages}`}
 							><span>{data?.total_pages > 500 ? 500 : data?.total_pages}</span>
 						</Link>
 					}
-				</div>}
+					</div>
+				}
 			</div>
 		</div>
 	);
