@@ -1,7 +1,145 @@
 .dashboard {
+	margin-top: 2rem;
 	.wrapper {
 		max-width: 1600px;
 		width: 90%;
 		margin: 0 auto;
+		background-color: var(--dark-card-bg);
+		display: flex;
+		align-items: stretch;
+		padding: 2rem;
+		gap: 2rem;
+		position: relative;
+		min-height: 40vh;
+		border-radius: 6px;
+
+		.tabs {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: flex-start;
+			gap: 1rem;
+			padding: 0 1rem;
+			background-color: var(--accent-color);
+			border-radius: 6px;
+			position: sticky;
+			left: 2rem;
+			top: 100px;
+			height: calc(100% + 50px);
+
+			button {
+				width: 120px;
+				padding: 8px 0;
+				outline: none;
+				border: none;
+				background-color: transparent;
+				color: var(--light-text);
+				font-size: 1.125rem;
+				cursor: pointer;
+				position: relative;
+
+				&::after {
+					content: '';
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					background-color: #eee;
+					height: 2px;
+					width: 0;
+					transition: all 0.2s;
+				}
+
+				&:hover::after {
+					width: 100%;
+				}
+			}
+		}
+
+		.content {
+			width: 100%;
+
+			h3 {
+				text-align: center;
+				font-size: 2rem;
+				color: var(--accent-color);
+			}
+
+			.list {
+				display: flex;
+				align-items: stretch;
+				justify-content: center;
+				gap: 1rem;
+				flex-wrap: wrap;
+				margin-top: 1rem;
+
+				.movie {
+					width: 250px;
+					max-width: 350px;
+					background-color: var(--gray-bg-color);
+					flex-grow: 1;
+					border-radius: 12px;
+					height: 400px;
+					text-decoration: none;
+					color: var(--light-text);
+					background-size: cover;
+					overflow: hidden;
+					position: relative;
+
+					&:hover span {
+						top: 80%;
+						transform: translate(-50%, -50%) scale(1);
+					}
+
+					span {
+						display: flex;
+						flex-direction: column;
+						align-items: center;
+						gap: 0.5rem;
+						position: absolute;
+						transition: all 0.3s;
+						top: 120%;
+						left: 50%;
+						transform: translate(-50%, -50%) scale(1.5);
+						font-size: 1.25rem;
+						width: max-content;
+						text-shadow: 2px 2px 4px var(--body-bgc);
+						font-weight: 600;
+
+						.icon {
+							background-color: var(--accent-color);
+							color: #eee;
+							border-radius: 50%;
+							width: 50px;
+							height: 50px;
+							box-shadow: 0 0 0 0 #000000;
+							transform: scale(1);
+							animation: pulse 1.25s infinite;
+							padding: 0.5rem;
+						}
+					}
+				}
+
+				p {
+					font-size: 1.5rem;
+				}
+			}
+		}
+	}
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 #eee;
+	}
+
+	70% {
+		transform: scale(1.05);
+		box-shadow: 0 0 0 15px #eee0;
+	}
+
+	100% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 #eee0;
 	}
 }
